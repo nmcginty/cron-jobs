@@ -1,3 +1,3 @@
 #!/usr/bin/zsh
 
-rsync -avzP --delete ~/code/school/drexel/cs510-ai nm3249@tux:~/courses/
+rsync -avzP --delete ~/code/school/drexel/ai-cs510 nm3249@tux:~/courses/
