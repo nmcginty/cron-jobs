@@ -1,3 +1,4 @@
 #!/usr/bin/zsh
 
-rsync -avzP --delete ~/code/school/drexel/ai-cs510 nm3249@tux:~/courses/
+course="qfds-dsci500"
+rsync -avzP --delete ~/code/school/drexel/${course} nm3249@tux:~/courses/
