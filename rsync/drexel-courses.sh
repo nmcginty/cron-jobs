@@ -1,4 +1,5 @@
 #!/usr/bin/zsh
 
-course="qfds-dsci500"
-rsync -avzP --delete ~/code/school/drexel/${course} nm3249@tux:~/courses/
+course="ml-cs613"
+rsync -avzP --exclude={'.venv','__pycache__'} ~/code/school/drexel/${course} nm3249@tux:~/courses/
+#rsync -avzP --delete ~/code/school/drexel/${course} nm3249@tux:~/courses/
