@@ -6,19 +6,10 @@ DAY=$(date +%A)
 TAR_FILE=/home/wheat/code/data/hdd/debian-pc-home-backup-${DATE}.tgz
 echo "TAR_FILE: $TAR_FILE"
 
-! [[ $DAY == "Sunday" ]]
-DAY_IS_SUNDAY=$?
+! [[ $DAY == "Sunday" || $DAY == "Tuesday" || $DAY == "Thursday" ]]
+BACKUP=$?
 
-# Run full backups only on Sunday
-if (( $DAY_IS_SUNDAY ));then
-	echo "Running Full Backup..."
-	sleep 2
-	tar --exclude=/home/wheat/code/data/hdd \
-		-cvzf \
-		${TAR_FILE} \
-	    /home/wheat	
-else
-	echo "Running Partial Backup..."
+if (( $BACKUP ));then
 	sleep 2
 	tar --exclude=/home/wheat/code/data/hdd \
 	    --exclude=/home/wheat/aws \
@@ -34,6 +25,7 @@ else
 	    --exclude=.java \
 	    --exclude=.jar \
 	    --exclude=.zoom \
+	    --exclude=.git \
 	    --exclude=.ssr \
 	    --exclude=.nsightsystems \
 	    --exclude=.vscode \
@@ -60,7 +52,7 @@ AWS_S3_BACKUPS_BUCKET_NAME=wheat-pc-backups
 
 if [[ $backup_successful -eq 0 ]]; then 
 	echo "Backup successful"
-	aws s3 cp ${TAR_FILE} s3://${AWS_S3_BACKUPS_BUCKET_NAME} --region us-east-1 --storage-class STANDARD_IA
+	aws s3 cp ${TAR_FILE} s3://${AWS_S3_BACKUPS_BUCKET_NAME} --region us-east-1 --storage-class GLACIER
     # TODO check if copy was successful, may be able to handle this via aws
 	exit 0
 fi
