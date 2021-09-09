@@ -52,7 +52,7 @@ AWS_S3_BACKUPS_BUCKET_NAME=wheat-pc-backups
 
 if [[ $backup_successful -eq 0 ]]; then 
 	echo "Backup successful"
-	aws s3 cp ${TAR_FILE} s3://${AWS_S3_BACKUPS_BUCKET_NAME} --region us-east-1 --storage-class GLACIER
+	aws s3 cp ${TAR_FILE} s3://${AWS_S3_BACKUPS_BUCKET_NAME} --region us-east-1 --storage-class DEEP_ARCHIVE
     # TODO check if copy was successful, may be able to handle this via aws
 	exit 0
 fi
